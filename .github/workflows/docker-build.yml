@@ -12,6 +12,16 @@ jobs:
       MYSQL_DB_ROOT_PASSWORD: ${{ secrets.MYSQL_DB_ROOT_PASSWORD }}
       MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
       MYSQL_DB_PASSWORD: ${{ secrets.MYSQL_DB_PASSWORD }}
+      VITE_SECRET_KEY_JWT: ${{ secrets.VITE_SECRET_KEY_JWT }}
+      VITE_API_URL: ${{ secrets.VITE_API_URL }}
+      MYSQL_DB_USER: ${{ secrets.MYSQL_DB_USER }}
+      MYSQL_DB_HOST: ${{ secrets.MYSQL_DB_HOST }}
+      MYSQL_DB_PORT: ${{ secrets.MYSQL_DB_PORT }}
+      SECRET_KEY_JWT: ${{ secrets.SECRET_KEY_JWT }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      OPENAI_PROJECT: ${{ secrets.OPENAI_PROJECT }}
+      OPENAI_ORGANIZATION: ${{ secrets.OPENAI_ORGANIZATION }}
+      OPENAI_MODEL: ${{ secrets.OPENAI_MODEL }}
     
     steps:
       - name: Checkout Repository
