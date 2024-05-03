@@ -80,6 +80,8 @@ Este projeto está sob licença do [MIT](https://github.com/danielbped/ChatPRT/b
 
 Para que a aplicação funcione corretamente, algumas variáveis de ambiente precisam ser configuradas, basta seguir os passos a seguir.
 
+Na raiz do projeto, basta renomear o arquivo .env.example para .env, lá já se encontram todas as variáveis necessárias para iniciar o banco de dados.
+
 ### Backend <a name="env-backend"></a>
 Na pasta Backend, será necessário criar um arquivo .env, com as seguintes informações:
 ```
