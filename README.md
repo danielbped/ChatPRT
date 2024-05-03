@@ -100,6 +100,13 @@ OPENAI_MODEL=
 
 Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, são responsáveis pela criação do banco de dados. Caso deseje utilizar um banco de dados local ao invés do banco fornecido na imagem do Docker, basta alterar os dados de acordo com os dados de usuário do banco de dados local. Em relação às outras variáveis. Em relação às variáveis relacionadas à plataforma da OpenAI, é necessário que você possua uma conta na [OpenAI](https://platform.openai.com/docs/introduction), com um projeto criado, então o código do projeto irá em **OPENAI_PROJECT** e o código da organização em **OPENAI_ORGANIZATION**. Já em relação ao modelo utilizado, foi o **gpt-3.5-turbo**, mas outros modelos podem ser utilizados, de acordo com as configurações da sua conta. Para mais informações sobre como obter estes dados, [visite](https://platform.openai.com/docs/guides/production-best-practices).
 
+> ⚠️ Outro ponto necessário é descomentar, no arquivo `docker-compose.yml`, as linhas abaixo ⚠️
+
+```yml
+env_file:
+  - ./Backend/.env
+```
+
 ## Iniciando a aplicação <a name="start"></a>
 
 Com as variáveis de ambiente configuradas, basta executar o comando do Docker abaixo para buildar a aplicação:
