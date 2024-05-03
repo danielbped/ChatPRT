@@ -108,7 +108,7 @@ Com as variáveis de ambiente configuradas, basta executar o comando do Docker a
 
 Caso tudo tenha dado certo, a seguinte mensagem aparecerá no terminal
 
-```json
+```
   [+] Running 3/3
   Container chatprt-chatprt-db-1  Running
   Container chatprt-chatprt-backend-1  Started
