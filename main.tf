@@ -10,12 +10,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = var.google_credentials
   project     = "polar-surfer-422214-c5"
-}
-
-variable "google_credentials" {
-default=""
 }
 
 resource "google_cloud_run_service" "backend_service" {
