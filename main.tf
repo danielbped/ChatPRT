@@ -10,8 +10,12 @@ terraform {
 }
 
 provider "google" {
-  credentials = var.google_credentials
+  credentials = var.gcp-creds
   project     = "polar-surfer-422214-c5"
+}
+
+variable "gcp-creds" {
+  default=""
 }
 
 resource "google_cloud_run_service" "backend_service" {
@@ -43,8 +47,4 @@ resource "google_cloud_run_service" "frontend_service" {
 resource "google_project_service" "run_api" {
   service            = "run.googleapis.com"
   disable_on_destroy = true
-}
-
-variable "google_credentials" {
-  default=""
 }
