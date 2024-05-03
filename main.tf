@@ -10,13 +10,12 @@ terraform {
 }
 
 provider "google" {
-  credentials = jsondecode(textdecodebase64(var.gcp-creds, "UTF-8"))
+  credentials = var.google_credentials
   project     = "polar-surfer-422214-c5"
 }
 
-variable "gcp-creds" {
-  type = string
-  default=""
+variable "google_credentials" {
+default=""
 }
 
 resource "google_cloud_run_service" "backend_service" {
