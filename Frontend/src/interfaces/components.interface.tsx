@@ -52,7 +52,7 @@ export interface InputProps {
   placeholder: string
   title: string
   onChange: ChangeEventHandler<HTMLInputElement>
-  onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>) => void
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
 }
 
 export interface ButtonProps {

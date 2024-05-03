@@ -8,13 +8,23 @@ Para a realização desse projeto, foi utilizada a [ferramenta da OpenAI](https:
 
 # Sumário
 - [Licença](#licenca)
-- [Frontend](#frontend)
-  - [.env](#env-front)
-  - [Demonstração](#demo-front)
-- [Backend](#backend)
-  - [.env ](#env-back)
-  - [Rotas e autenticação](#rotas)
-  - [Testes](#testes-back)
+- [Tecnologias utilizadas](#tecnologias)
+- [Instruções para rodar o projeto](#instrucoes)
+  - [.env](#env)
+    - [Backend](#env-backend)
+  - [Iniciando a aplicação](#start)
+- [Demonstração](#demo)
+- [Rotas e autenticação](#rotas)
+  - [Verificar saúde da aplicação](#health)
+  - [Autenticação](#token)
+  - [Criar um novo usuário](#post-user)
+  - [Login do usuário](#login)
+  - [Criar uma nova mensagem](#post-message)
+  - [Buscar conversas pelo id do usuário](#get-conversation)
+  - [Criar uma nova conversa](#post-conversation)
+  - [Deletar uma conversa](#delete-conversation)
+- [Testes](#testes)
+  - [Backend](#testes-backend)
 - [Banco de dados](#db)
 
 ## Licença <a name="licenca"></a>
@@ -22,7 +32,7 @@ Este projeto está sob licença do [MIT](https://github.com/danielbped/ChatPRT/b
 
 ## Tecnologias utilizadas <a name="tecnologias"></a>
 - **[ReactJS](https://react.dev/)**: Uma biblioteca JavaScript de código aberto utilizada para construir interfaces de usuário (UI). Desenvolvida pelo Facebook, ela é baseada em componentes reutilizáveis, permitindo a construção de interfaces dinâmicas e interativas de forma eficiente.
-- **[TypeScript]**(https://www.typescriptlang.org/)**: Um superconjunto de JavaScript que adiciona tipagem estática opcional ao código. Ele ajuda os desenvolvedores a detectar erros mais cedo durante o desenvolvimento e oferece ferramentas avançadas para trabalhar em projetos de grande escala, melhorando a manutenibilidade e escalabilidade do código.
+- **[TypeScript](https://www.typescriptlang.org/)**: Um superconjunto de JavaScript que adiciona tipagem estática opcional ao código. Ele ajuda os desenvolvedores a detectar erros mais cedo durante o desenvolvimento e oferece ferramentas avançadas para trabalhar em projetos de grande escala, melhorando a manutenibilidade e escalabilidade do código.
 - **[Styled Components](https://styled-components.com/)**: Uma biblioteca para React e React Native que permite escrever estilos CSS diretamente dentro de componentes JavaScript. Isso facilita a criação e o gerenciamento de estilos, além de fornecer recursos como props dinâmicas e escopo encapsulado para estilos.
 - **[Axios](https://axios-http.com/ptbr/docs/intro)**: Uma biblioteca JavaScript para fazer requisições HTTP a partir do navegador ou Node.js. Ele fornece uma API simples e concisa para lidar com solicitações e respostas HTTP, suportando várias funcionalidades, como interceptadores, cancelamento de requisições e transformações de dados.
 - **[Vite](https://vitejs.dev/)**: Um construtor de aplicações web moderno e rápido, desenvolvido principalmente para projetos usando Vue.js, mas também é compatível com outras estruturas como React e Svelte. Ele oferece um ambiente de desenvolvimento extremamente rápido e eficiente, com recarga rápida (hot module replacement) e suporte a módulos ES.
@@ -45,52 +55,40 @@ Este projeto está sob licença do [MIT](https://github.com/danielbped/ChatPRT/b
 - **[Swagger](https://swagger.io/)**: Ferramente utilizada para criar documentações exemplificando a utilização das rotas, de uma forma prática.
 - **[OpenAI](https://platform.openai.com/docs/introduction)**: Biblioteca que nos permite integrar seus produtos de Inteligência Artificial aos nossos projetos.
 
-# Frontend <a name="frontend"></a>
+# Instruções para rodar o projeto <a name="instrucoes"></a>
 
-## .env <a name="env-front"></a>
-
-Na raiz do projeto, será necessário criar um arquivo .env, com as seguintes informações:
+### Será necessário ter instalado na sua máquina:
 
 ```
-  VITE_API_URL=""
-  VITE_SECRET_KEY_JWT="chat-prt"
+  Git
+  Docker
 ```
 
-Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, e alterar os dados **VITE_API_URL** de acordo com a rota em que a API esteja rodando, provavelmente será **http://localhost:3000**.
+- Clone o repositório com o comando git clone:
 
-## Demonstração <a name="demo-front"></a>
+```
+  git clone git@github.com:danielbped/ChatPRT.git
+```
 
-### Login
-![Login](./Frontend/public/images/login.png)
+- Entre no diretório que acabou de ser criado:
 
-### Novo usuário
-![Novo usuário](./Frontend/public/images/register.png)
+```
+  cd ChatPRT
+```
 
-### Caso em que não há nenhuma conversa cadastrada
-![Nenhuma conversa cadastrada](./Frontend/public/images/empty-conversations.png)
+## .env <a name="env"></a>
 
-### Nova conversa cadastrada
-![Nova conversa cadastrada](./Frontend/public/images/empty-message.png)
+Para que a aplicação funcione corretamente, algumas variáveis de ambiente precisam ser configuradas, basta seguir os passos a seguir.
 
-### Primeiras mensagens
-![Primeiras mensagens](./Frontend/public/images/first-conversation.png)
-
-### Novas mensagens, mantendo o histórico
-![Segunda conversa](./Frontend/public/images/second-conversation.png)
-
-<a href="https://www.flaticon.com/br/icones-gratis/prisma" title="prisma ícones">Prisma ícones criados por Freepik - Flaticon</a>
-
-# Backend <a name="backend"></a>
-
-## .env <a name="env-back"></a>
-Na raiz do projeto, será necessário criar um arquivo .env, com as seguintes informações:
+### Backend <a name="env-backend"></a>
+Na pasta Backend, será necessário criar um arquivo .env, com as seguintes informações:
 ```
 MYSQL_DB_USER=root
 MYSQL_DB_NAME=chat-prt
 MYSQL_DB_HOST=localhost
 MYSQL_DB_PASSWORD=password
 MYSQL_DB_ROOT_PASSWORD=password
-MYSQL_DB_PORT=3308
+MYSQL_DB_PORT=3306
 SECRET_KEY_JWT=chat-prt
 OPENAI_API_URL=https://api.openai.com/v1/chat/completions
 OPENAI_PROJECT=
@@ -100,9 +98,50 @@ OPENAI_MODEL=
 
 Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, são responsáveis pela criação do banco de dados. Caso deseje utilizar um banco de dados local ao invés do banco fornecido na imagem do Docker, basta alterar os dados de acordo com os dados de usuário do banco de dados local. Em relação às outras variáveis. Em relação às variáveis relacionadas à plataforma da OpenAI, é necessário que você possua uma conta na [OpenAI](https://platform.openai.com/docs/introduction), com um projeto criado, então o código do projeto irá em **OPENAI_PROJECT** e o código da organização em **OPENAI_ORGANIZATION**. Já em relação ao modelo utilizado, foi o **gpt-3.5-turbo**, mas outros modelos podem ser utilizados, de acordo com as configurações da sua conta. Para mais informações sobre como obter estes dados, [visite](https://platform.openai.com/docs/guides/production-best-practices).
 
-## Rotas e autenticação <a name="rotas"></a>
+## Iniciando a aplicação <a name="start"></a>
 
-## Verificar saúde da aplicação
+Com as variáveis de ambiente configuradas, basta executar o comando do Docker abaixo para buildar a aplicação:
+
+```
+  docker-compose up -d --build
+```
+
+Caso tudo tenha dado certo, a seguinte mensagem aparecerá no terminal
+
+```json
+  [+] Running 3/3
+  Container chatprt-chatprt-db-1  Running
+  Container chatprt-chatprt-backend-1  Started
+  Container chatprt-chatprt-frontend-1  Started
+```
+
+Agora basta acessar a URL http://localhost:8000 para acessar a aplicação, e a URL http://localhost:3000/docs para visualizar as rotas disponíveis da API.
+
+# Demonstração <a name="demo"></a>
+
+## Login
+![Login](./Frontend/public/images/login.png)
+
+## Novo usuário
+![Novo usuário](./Frontend/public/images/register.png)
+
+## Caso em que não há nenhuma conversa cadastrada
+![Nenhuma conversa cadastrada](./Frontend/public/images/empty-conversations.png)
+
+## Nova conversa cadastrada
+![Nova conversa cadastrada](./Frontend/public/images/empty-message.png)
+
+## Primeiras mensagens
+![Primeiras mensagens](./Frontend/public/images/first-conversation.png)
+
+## Novas mensagens, mantendo o histórico
+![Segunda conversa](./Frontend/public/images/second-conversation.png)
+
+<a href="https://www.flaticon.com/br/icones-gratis/prisma" title="prisma ícones">Prisma ícones criados por Freepik - Flaticon</a>
+
+# Rotas e autenticação <a name="rotas"></a>
+
+## Verificar saúde da aplicação <a name="health"></a>
 ### GET /health
 
 ### **Respostas**
@@ -111,7 +150,11 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
   - Status **500** (Internal Server Error)
     - **Descrição:** Aplicação não está funcionando corretamente. 
 
-## Criar um novo usuário
+## Autenticação <a name="token"></a>
+
+As requisições que envolvem usuário (`POST /user` e `POST /login`) possuem um comportamento semelhante. Ambas irão retornar o usuário logado e um token. **Este token será necessário para as demais rotas**, sendo passado no parâmetro Authorization dos headers das requisições. No seguinte formato `Bearer token`. Por exemplo, se o token for `yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ`, o parâmetro Authorization terá o seguinte valor `Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ`.
+
+## Criar um novo usuário <a name="post-user"></a>
 ### POST /users
 
 ### **Parâmetros da Requisição**
@@ -148,7 +191,7 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
   - Status **500** (Internal Server Error)
     -**Descrição:** Erro interno do sistema.
 
-## Login do usuário
+## Login do usuário <a name="login"></a>
 ### POST /login
 
 ### **Parâmetros da Requisição**
@@ -176,19 +219,13 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
       }
       ```
 
-      ```
-        Este **token** será utilizado nas próximas requisições, sendo passado nos headers,
-        no campo Authorization, no formato **'Bearer token'**.
-        Por exemplo: **Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ**
-      ```
-
   - Status **401** (Unauthorized)
     - **Descrição:** Credenciais inválidas.
 
   - Status **500** (Internal Server Error)
     - **Descrição:** Erro interno do sistema.
 
-## Criar uma nova mensagem
+## Criar uma nova mensagem <a name="post-message"></a>
 ### POST /messages
 
 ### **Parâmetros da Requisição**
@@ -253,7 +290,7 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
   - Status **500** (Internal Server Error)
     - **Descrição:** Erro interno do sistema.
 
-## Buscar conversas pelo id do usuário
+## Buscar conversas pelo id do usuário <a name="get-conversation"></a>
 ### GET /conversation/:id
 
 ### **Parâmetros da Requisição**
@@ -293,7 +330,7 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
   - Status **400** (Bad Request)
     - **Descrição:** Dados inválidos.
 
-## Criar uma nova conversa
+## Criar uma nova conversa <a name="post-conversation"></a>
 ### POST /conversation
 
 ### **Parâmetros da Requisição**
@@ -339,7 +376,7 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
 - Status **400** (Bad Request)
   - **Descrição:** Dados inválidos.
 
-## Deletar uma conversa
+## Deletar uma conversa <a name="delete-conversation"></a>
 ### DELETE /conversation/:id
 ### **Parâmetros da Requisição**
   
@@ -364,9 +401,10 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
 
 Ao rodar a aplicação, você poderá visualizar as rotas disponíveis, também como seus respectivos conteúdos de body e parametros, basta navegar para a rota **http://localhost:3000/docs**, onde está disponível uma documentação exclusiva das rotas, desenvolvida utilizando [Swagger](https://swagger.io/).
 
-## Testes <a name="testes-back"></a>
+## Testes <a name="testes"></a>
 
-A aplicação possui testes unitários de todas as rotas e todos os middlewares, também como testes E2E (End to end) de todas as rotas. Para rodar os testes, basta executar o comando abaixo:
+### Testes <a name="testes-backend"></a>
+A aplicação possui testes unitários de todas as rotas e todos os middlewares, também como testes E2E (End to end) de todas as rotas. Para rodar os testes, basta executar o comando abaixo, no diretório `/Backend`:
 
 ```
   npm run test

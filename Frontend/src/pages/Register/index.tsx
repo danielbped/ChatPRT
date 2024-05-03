@@ -51,10 +51,12 @@ const Register = () => {
 
   useEffect(() => {
     if (isSuccess && data.data) {
+      // @ts-ignore:next-line
       setToken(data.data.token)
 
       dispatch({
         type: GET_USER,
+        // @ts-ignore:next-line
         payload: data.data.user,
       })
 
@@ -68,6 +70,7 @@ const Register = () => {
         handleRegister={ handleRegister }
         submit={ submit }
         isError={ isError }
+        // @ts-ignore:next-line
         error={ error?.response.data.message }
         handleNavigate={ handleNavigate }
         disabledButton={ disableSubmit() }

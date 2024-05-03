@@ -46,10 +46,12 @@ const Login = () => {
 
   useEffect(() => {
     if (isSuccess && data.data) {
+      // @ts-ignore:next-line
       setToken(data.data.token)
 
       dispatch({
         type: GET_USER,
+        // @ts-ignore:next-line
         payload: data.data.user,
       })
 
@@ -61,6 +63,7 @@ const Login = () => {
     <StyledLogin>
       <SideSection />
       <LoginForm
+        // @ts-ignore:next-line
         error={ error?.response.data.message }
         isError={ isError }
         submit={ submit }

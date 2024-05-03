@@ -1,7 +1,33 @@
 version: '3.8'
 
 services:
-  db:
+  chatprt-backend:
+    image: chatprt-backend
+    restart: always
+    build: ./Backend
+    env_file:
+      - ./Backend/.env
+    ports:
+      - 3000:3000
+    depends_on:
+      - chatprt-db
+    networks:
+      - backend_network
+
+  chatprt-frontend:
+    image: chatprt-frontend
+    build: ./Frontend
+    restart: always
+    env_file:
+      - ./Frontend/.env
+    ports:
+      - 8000:8000
+    depends_on:
+      - chatprt-backend
+    networks:
+      - frontend_network
+
+  chatprt-db:
     image: mysql:latest
     restart: always
     environment:
@@ -9,6 +35,14 @@ services:
       MYSQL_DATABASE: ${MYSQL_DB_NAME}
       MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
     ports:
-      - 3308:3306
+      - 3306:3306
     volumes:
-      - ./data:/var/lib/mysql
+      - ./Backend/data:/var/lib/mysql
+    networks:
+      - backend_network
+
+networks:
+  backend_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge
