@@ -23,4 +23,4 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       
       - name: Build and Push Docker Image
-        run: ../docker_build_and_push.sh
+        run: .github/docker_build_and_push.sh
