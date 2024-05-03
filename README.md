@@ -12,9 +12,9 @@ Para a realização desse projeto, foi utilizada a [ferramenta da OpenAI](https:
   - [.env](#env-front)
   - [Demonstração](#demo-front)
 - [Backend](#backend)
-  - [.env ](#env)
+  - [.env ](#env-back)
   - [Rotas e autenticação](#rotas)
-  - [Testes](#testes)
+  - [Testes](#testes-back)
 - [Banco de dados](#db)
 
 ## Licença <a name="licenca"></a>
@@ -58,7 +58,7 @@ Na raiz do projeto, será necessário criar um arquivo .env, com as seguintes in
 
 Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, e alterar os dados **VITE_API_URL** de acordo com a rota em que a API esteja rodando, provavelmente será **http://localhost:3000**.
 
-## Demonstração <a name="demo"></a>
+## Demonstração <a name="demo-front"></a>
 
 ### Login
 ![Login](./Frontend/public/images/login.png)
@@ -82,7 +82,7 @@ Um arquivo com estas definições já está presente no projeto, o **.env.exampl
 
 # Backend <a name="backend"></a>
 
-## .env <a name="env"></a>
+## .env <a name="env-back"></a>
 Na raiz do projeto, será necessário criar um arquivo .env, com as seguintes informações:
 ```
 MYSQL_DB_USER=root
@@ -99,14 +99,6 @@ OPENAI_MODEL=
 ```
 
 Um arquivo com estas definições já está presente no projeto, o **.env.example**, para que funcione corretamente, basta renomear para apenas **.env**, são responsáveis pela criação do banco de dados. Caso deseje utilizar um banco de dados local ao invés do banco fornecido na imagem do Docker, basta alterar os dados de acordo com os dados de usuário do banco de dados local. Em relação às outras variáveis. Em relação às variáveis relacionadas à plataforma da OpenAI, é necessário que você possua uma conta na [OpenAI](https://platform.openai.com/docs/introduction), com um projeto criado, então o código do projeto irá em **OPENAI_PROJECT** e o código da organização em **OPENAI_ORGANIZATION**. Já em relação ao modelo utilizado, foi o **gpt-3.5-turbo**, mas outros modelos podem ser utilizados, de acordo com as configurações da sua conta. Para mais informações sobre como obter estes dados, [visite](https://platform.openai.com/docs/guides/production-best-practices).
-
-## Iniciando o projeto <a name="start"></a>
-
-Para rodar o projeto na sua máquina, basta utilizar o comando a seguir:
-
-```
-  npm run start:dev
-```
 
 ## Rotas e autenticação <a name="rotas"></a>
 
@@ -372,7 +364,7 @@ Para rodar o projeto na sua máquina, basta utilizar o comando a seguir:
 
 Ao rodar a aplicação, você poderá visualizar as rotas disponíveis, também como seus respectivos conteúdos de body e parametros, basta navegar para a rota **http://localhost:3000/docs**, onde está disponível uma documentação exclusiva das rotas, desenvolvida utilizando [Swagger](https://swagger.io/).
 
-## Testes <a name="testes"></a>
+## Testes <a name="testes-back"></a>
 
 A aplicação possui testes unitários de todas as rotas e todos os middlewares, também como testes E2E (End to end) de todas as rotas. Para rodar os testes, basta executar o comando abaixo:
 
