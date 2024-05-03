@@ -18,7 +18,7 @@ variable "gcp_credentials" {
 
 provider "google" {
   project     = "polar-surfer-422214-c5"
-  credentials = var.gcp_credentials
+  credentials = jsondecode(var.gcp_credentials)
 }
 
 resource "google_cloud_run_service" "backend_service" {
