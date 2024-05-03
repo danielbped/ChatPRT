@@ -1,3 +1,5 @@
+variable "google_credentials" {}
+
 terraform {
   required_version = ">= 1.3"
 
@@ -10,7 +12,8 @@ terraform {
 }
 
 provider "google" {
-  project = "polar-surfer-422214-c5"
+  credentials = jsondecode(base64decode(var.google_credentials))
+  project     = "polar-surfer-422214-c5"
 }
 
 resource "google_cloud_run_service" "backend_service" {
