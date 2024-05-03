@@ -1,5 +1,3 @@
-variable "google_credentials" {}
-
 terraform {
   required_version = ">= 1.3"
 
@@ -12,7 +10,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = jsondecode(base64decode(var.google_credentials))
+  credentials = jsondecode(base64decode(secrets.GOOGLE_CREDENTIALS))
   project     = "polar-surfer-422214-c5"
 }
 
