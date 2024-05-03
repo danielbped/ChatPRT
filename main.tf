@@ -1,4 +1,7 @@
-variable "google_credentials" {}
+variable "google_credentials" {
+  type      = string
+  sensitive = true
+}
 
 terraform {
   required_version = ">= 1.3"
