@@ -1,8 +1,3 @@
-variable "google_credentials" {
-  type      = string
-  sensitive = true
-}
-
 terraform {
   required_version = ">= 1.3"
 
@@ -48,4 +43,8 @@ resource "google_cloud_run_service" "frontend_service" {
 resource "google_project_service" "run_api" {
   service            = "run.googleapis.com"
   disable_on_destroy = true
+}
+
+variable "google_credentials" {
+  default=""
 }

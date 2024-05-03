@@ -7,8 +7,6 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    env:
-      TF_VAR_google_credentials: ${{ secrets.GOOGLE_CREDENTIALS }}
 
     steps:
       - name: Checkout code
