@@ -9,16 +9,8 @@ terraform {
   }
 }
 
-variable "gcp_credentials" {
-  type = string
-  sensitive = true
-  default=""
-  description = "Google Cloud service account credentials"
-}
-
 provider "google" {
   project     = "polar-surfer-422214-c5"
-  credentials = jsondecode(var.gcp_credentials)
 }
 
 resource "google_cloud_run_service" "backend_service" {
