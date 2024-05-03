@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   chatprt-backend:
-    image: chatprt-backend
+    image: chatprt-backend:latest
     restart: always
     build: ./Backend
     environment:
@@ -22,7 +22,7 @@ services:
       - backend_network
 
   chatprt-frontend:
-    image: chatprt-frontend
+    image: chatprt-frontend:latest
     build: ./Frontend
     restart: always
     environment:
