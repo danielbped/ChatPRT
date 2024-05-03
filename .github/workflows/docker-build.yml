@@ -8,6 +8,10 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    env:
+      MYSQL_DB_ROOT_PASSWORD: ${{ secrets.MYSQL_DB_ROOT_PASSWORD }}
+      MYSQL_DB_NAME: ${{ secrets.MYSQL_DB_NAME }}
+      MYSQL_DB_PASSWORD: ${{ secrets.MYSQL_DB_PASSWORD }}
     
     steps:
       - name: Checkout Repository
