@@ -15,7 +15,7 @@ terraform {
 }
 
 provider "google" {
-  credentials = jsondecode(base64decode(var.google_credentials))
+  credentials = var.google_credentials
   project     = "polar-surfer-422214-c5"
 }
 
