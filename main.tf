@@ -12,6 +12,7 @@ terraform {
 variable "gcp_credentials" {
   type = string
   sensitive = true
+  default=""
   description = "Google Cloud service account credentials"
 }
 
