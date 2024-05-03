@@ -18,7 +18,7 @@ jobs:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
       - name: Set Google Cloud credentials
-        run: echo "::set-env name=GOOGLE_CREDENTIALS::${{ secrets.GOOGLE_CREDENTIALS }}"
+        run: echo "$GOOGLE_CREDENTIALS" > /path/to/google_credentials.json
 
       - name: Terraform Init
         run: terraform init
