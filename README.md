@@ -107,6 +107,28 @@ env_file:
   - ./Backend/.env
 ```
 
+> ⚠️ E comentar, no arquivo `docker-compose.yml`, as linhas abaixo ⚠️
+
+
+```yml
+  environment:
+    MYSQL_DB_USER: ${MYSQL_DB_USER}
+    MYSQL_DB_HOST: ${MYSQL_DB_HOST}
+    MYSQL_DB_PORT: ${MYSQL_DB_PORT}
+    SECRET_KEY_JWT: ${SECRET_KEY_JWT}
+    OPENAI_API_KEY: ${OPENAI_API_KEY}
+    OPENAI_PROJECT: ${OPENAI_PROJECT}
+    OPENAI_ORGANIZATION: ${OPENAI_ORGANIZATION}
+    OPENAI_MODEL: ${OPENAI_MODEL}
+```
+
+```yml
+  environment:
+    VITE_API_URL: ${VITE_API_URL}
+    VITE_SECRET_KEY_JWT: ${VITE_SECRET_KEY_JWT}
+```
+
+
 ## Iniciando a aplicação <a name="start"></a>
 
 Com as variáveis de ambiente configuradas, basta executar o comando do Docker abaixo para buildar a aplicação:
