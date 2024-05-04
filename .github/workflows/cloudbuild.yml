@@ -1,0 +1,26 @@
+steps:
+  steps:
+  - name: 'Add google credentials to project'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/key.json
+        gcloud auth activate-service-account --key-file=/tmp/key.json
+
+
+  - name: 'Build docker backend container'
+    args: ['build', '-t', 'docker.io/danielbped1/chatprt-backend:latest', '-f', '../Backend/Dockerfile', '../Backend']
+
+  - name: 'Build docker frontend container'
+    args: ['build', '-t', 'docker.io/danielbped1/chatprt-frontend:latest', '-f', '../Frontend/Dockerfile', '../Frontend']
+
+  - name: 'Push docker backend container'
+    args: ['push', 'docker.io/danielbped1/chatprt-backend:latest']
+  - name: 'docker.io/cloud-builders/docker'
+    args: ['push', 'docker.io/danielbped1/chatprt-frontend:latest']
+
+  - name: 'Push docker frontend container'
+    args: ['run', 'deploy', 'chatprt-backend', '--image', 'docker.io/danielbped1/chatprt-backend:latest', '--platform', 'managed', '--region', 'us-west1', '--allow-unauthenticated']
+  - name: 'docker.io/cloud-builders/gcloud'
+    args: ['run', 'deploy', 'chatprt-frontend', '--image', 'docker.io/danielbped1/chatprt-frontend:latest', '--platform', 'managed', '--region', 'us-west1', '--allow-unauthenticated']
