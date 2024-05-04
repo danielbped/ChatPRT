@@ -1,3 +1,5 @@
+name: Cloud Build
+
 steps:
   steps:
   - name: 'Add google credentials to project'
