@@ -43,4 +43,4 @@ jobs:
 
       - name: Submit build to Cloud Build
         run: |
-          gcloud builds submit --config=cloudbuild.yaml --no-source --async
+          gcloud builds submit --config=cloudbuild.yml --no-source --async
