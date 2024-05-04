@@ -43,4 +43,5 @@ jobs:
 
       - name: Submit build to Cloud Build
         run: |
+          cd .github
           gcloud builds submit --config=cloudbuild.yml --no-source --async
