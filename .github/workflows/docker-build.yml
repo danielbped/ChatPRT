@@ -1,4 +1,4 @@
-name: Docker Compose Build and Push
+name: Application build
 
 on:
   push:
@@ -40,3 +40,15 @@ jobs:
       
       - name: Build and Push Docker Image
         run: .github/docker_build_and_push.sh
+      
+      - name: Authenticate with Google Cloud
+        run: |
+          echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/key.json
+          gcloud auth activate-service-account --key-file=/tmp/key.json
+
+      - name: Submit build to Cloud Build
+        run: gcloud builds submit --config=cloudbuild.yml .D_KEY }}" > /tmp/key.json
+          gcloud auth activate-service-account --key-file=/tmp/key.json
+
+      - name: Submit build to Cloud Build
+        run: gcloud builds submit --config=cloudbuild.yaml .
