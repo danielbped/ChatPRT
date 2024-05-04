@@ -1,16 +1,6 @@
 name: Cloud Build
 
 steps:
-  steps:
-  - name: 'Add google credentials to project'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        echo "${{ secrets.GOOGLE_CREDENTIALS }}" > /tmp/key.json
-        gcloud auth activate-service-account --key-file=/tmp/key.json
-
-
   - name: 'Build docker backend container'
     args: ['build', '-t', 'docker.io/danielbped1/chatprt-backend:latest', '-f', '../Backend/Dockerfile', '../Backend']
 

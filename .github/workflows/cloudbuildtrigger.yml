@@ -1,0 +1,22 @@
+name: Cloud Build Trigger
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Authenticate with Google Cloud
+        run: |
+          echo "${{ GOOGLE_CREDENTIALS.GCLOUD_KEY }}" > /tmp/key.json
+          gcloud auth activate-service-account --key-file=/tmp/key.json
+
+      - name: Submit build to Cloud Build
+        run: gcloud builds submit --config=cloudbuild.yml .
