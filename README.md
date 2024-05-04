@@ -118,13 +118,21 @@ Com as variáveis de ambiente configuradas, basta executar o comando do Docker a
 Caso tudo tenha dado certo, a seguinte mensagem aparecerá no terminal
 
 ```
-  [+] Running 3/3
-  Container chatprt-chatprt-db-1  Running
+  [+] Running 5/5
+  Network chatprt_backend_network Created
+  Network chatprt_frontend_network Created
+  Container chatprt-chatprt-db-1  Started
   Container chatprt-chatprt-backend-1  Started
   Container chatprt-chatprt-frontend-1  Started
 ```
 
 Agora basta acessar a URL http://localhost:8000 para acessar a aplicação, e a URL http://localhost:3000/docs para visualizar as rotas disponíveis da API.
+
+Para derrubar a aplicação e encerrar os containers do Docker, basta rodar o comando abaixo:
+
+```
+  docker-compose down
+```
 
 # Demonstração <a name="demo"></a>
 
