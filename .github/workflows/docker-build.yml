@@ -47,8 +47,4 @@ jobs:
           gcloud auth activate-service-account --key-file=/tmp/key.json
 
       - name: Submit build to Cloud Build
-        run: gcloud builds submit --config=cloudbuild.yml .D_KEY }}" > /tmp/key.json
-          gcloud auth activate-service-account --key-file=/tmp/key.json
-
-      - name: Submit build to Cloud Build
         run: gcloud builds submit --config=cloudbuild.yaml .
