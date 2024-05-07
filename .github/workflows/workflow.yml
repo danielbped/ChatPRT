@@ -34,7 +34,7 @@ jobs:
           with:
             node-version: 18.x
 
-        - name: Install, build and test
+        - name: Install and build
           run: |
             cd Frontend
             npm install

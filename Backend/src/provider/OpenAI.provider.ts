@@ -18,7 +18,6 @@ export class OpenAiProvider {
     const openai = new OpenAI({
       organization: OPENAI_ORGANIZATION,
       project: OPENAI_PROJECT,
-      dangerouslyAllowBrowser: true,
     })
 
     const response: any = await openai.chat.completions.create({
