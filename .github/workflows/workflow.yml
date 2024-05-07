@@ -1,0 +1,41 @@
+name: Continuous Integration
+
+on: pull_request
+
+jobs:
+  continuous-integration-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      
+      - name: Set up Node
+        uses: action/setup-node@v2
+        with:
+          node-version: 18.x
+
+      - name: Install, build and test
+        run: |
+          cd Backend
+          npm install
+          npm run build
+          npm run test
+
+  continuous-integration-frontend:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout Repository
+          uses: actions/checkout@v2
+        
+        - name: Set up Node
+          uses: action/setup-node@v2
+          with:
+            node-version: 18.x
+
+        - name: Install, build and test
+          run: |
+            cd Frontend
+            npm install
+            npm run build
