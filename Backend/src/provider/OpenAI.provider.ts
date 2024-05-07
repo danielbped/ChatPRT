@@ -24,13 +24,13 @@ export class OpenAiProvider {
     })
 
     const response: any = await openai.chat.completions.create({
-      model: OPENAI_MODEL,
+      model: OPENAI_MODEL || '',
       messages: [{ role: "user", content }],
       stream: false,
   })
     
     const choices = response.choices.map((choice) => choice.message)
-    
+  
     return choices[0].content
   }
 }
