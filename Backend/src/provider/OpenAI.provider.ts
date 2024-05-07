@@ -7,8 +7,7 @@ config()
 const {
   OPENAI_ORGANIZATION,
   OPENAI_PROJECT,
-  OPENAI_MODEL,
-  OPENAI_API_KEY
+  OPENAI_MODEL
 } = process.env
 
 @Injectable()
@@ -17,7 +16,6 @@ export class OpenAiProvider {
 
   async use(content: string): Promise<string> {
     const openai = new OpenAI({
-      apiKey: OPENAI_API_KEY,
       organization: OPENAI_ORGANIZATION,
       project: OPENAI_PROJECT,
       dangerouslyAllowBrowser: true,
@@ -27,7 +25,7 @@ export class OpenAiProvider {
       model: OPENAI_MODEL,
       messages: [{ role: "user", content }],
       stream: false,
-  })
+    })
     
     const choices = response.choices.map((choice) => choice.message)
   
