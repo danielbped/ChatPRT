@@ -4,7 +4,7 @@ WORKDIR /Frontend
 
 EXPOSE 8000
 
-COPY package*.json .
+COPY package*.json ./
 
 RUN npm install
 
@@ -12,4 +12,4 @@ COPY . .
 
 RUN npm run build
 
-ENTRYPOINT ["npm", "start"]
+CMD ["npm", "start"]
