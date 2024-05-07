@@ -7,9 +7,10 @@ config()
 const {
   OPENAI_ORGANIZATION,
   OPENAI_PROJECT,
-  OPENAI_MODEL,
   OPENAI_API_KEY
 } = process.env
+
+const openAiModel = 'gpt-3.5-turbo'
 
 @Injectable()
 export class OpenAiProvider {
@@ -24,7 +25,7 @@ export class OpenAiProvider {
     })
 
     const response: any = await openai.chat.completions.create({
-      model: OPENAI_MODEL || '',
+      model: openAiModel,
       messages: [{ role: "user", content }],
       stream: false,
   })
