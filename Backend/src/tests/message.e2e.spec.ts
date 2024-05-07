@@ -6,7 +6,6 @@ import { MessageService } from '../routes/message/message.service'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import Message from '../entity/messages.entity'
-import { OpenAiProvider } from '../provider/OpenAI.provider'
 import { StatusCodes } from 'http-status-codes'
 import { mockMessage, mockNewMessage, mockResponse } from '../utils/Mocks'
 
@@ -20,7 +19,6 @@ describe('E2E Message', () => {
   let app: INestApplication
   let messageService: MessageService
   let messageRepository: Repository<Message>
-  let openAiProvider: OpenAiProvider
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -35,7 +33,6 @@ describe('E2E Message', () => {
 
     messageService = moduleFixture.get<MessageService>(MessageService)
     messageRepository = moduleFixture.get<Repository<Message>>(getRepositoryToken(Message))
-    openAiProvider = moduleFixture.get<OpenAiProvider>(OpenAiProvider)
   })
 
   it('/POST message', async () => {
