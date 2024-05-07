@@ -16,8 +16,6 @@ jobs:
           node-version: 18.x
 
       - name: Install, build and test
-        with:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
           cd Backend
           npm install

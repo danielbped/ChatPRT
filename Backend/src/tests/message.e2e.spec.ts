@@ -10,6 +10,12 @@ import { OpenAiProvider } from '../provider/OpenAI.provider'
 import { StatusCodes } from 'http-status-codes'
 import { mockMessage, mockNewMessage, mockResponse } from '../utils/Mocks'
 
+jest.mock('../provider/OpenAI.provider', () => ({
+  OpenAiProvider: jest.fn().mockImplementation(() => ({
+    use: jest.fn().mockResolvedValue(mockResponse)
+  }))
+}))
+
 describe('E2E Message', () => {
   let app: INestApplication
   let messageService: MessageService
@@ -34,15 +40,6 @@ describe('E2E Message', () => {
 
   it('/POST message', async () => {
     jest.spyOn(messageRepository, 'save').mockImplementation((message) => Promise.resolve(message as any))
-
-    const mockCreate = jest.fn().mockImplementation(async () => (
-      { choices: [ { message: { content: mockResponse } } ] })
-    )
-
-    jest.mock('openai', () => {
-      return jest.fn().mockImplementation(() => 
-        ({ chat: { completions: { create: mockCreate } } }) )
-    })
 
     const response = await request(app.getHttpServer())
       .post('/message')
