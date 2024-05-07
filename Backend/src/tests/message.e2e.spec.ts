@@ -6,15 +6,19 @@ import { MessageService } from '../routes/message/message.service'
 import { getRepositoryToken } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import Message from '../entity/messages.entity'
-import { OpenAiProvider } from '../provider/OpenAI.provider'
 import { StatusCodes } from 'http-status-codes'
 import { mockMessage, mockNewMessage, mockResponse } from '../utils/Mocks'
+
+jest.mock('../provider/OpenAI.provider', () => ({
+  OpenAiProvider: jest.fn().mockImplementation(() => ({
+    use: jest.fn().mockResolvedValue(mockResponse)
+  }))
+}))
 
 describe('E2E Message', () => {
   let app: INestApplication
   let messageService: MessageService
   let messageRepository: Repository<Message>
-  let openAiProvider: OpenAiProvider
 
   beforeAll(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -29,20 +33,10 @@ describe('E2E Message', () => {
 
     messageService = moduleFixture.get<MessageService>(MessageService)
     messageRepository = moduleFixture.get<Repository<Message>>(getRepositoryToken(Message))
-    openAiProvider = moduleFixture.get<OpenAiProvider>(OpenAiProvider)
   })
 
   it('/POST message', async () => {
     jest.spyOn(messageRepository, 'save').mockImplementation((message) => Promise.resolve(message as any))
-
-    const mockCreate = jest.fn().mockImplementation(async () => (
-      { choices: [ { message: { content: mockResponse } } ] })
-    )
-
-    jest.mock('openai', () => {
-      return jest.fn().mockImplementation(() => 
-        ({ chat: { completions: { create: mockCreate } } }) )
-    })
 
     const response = await request(app.getHttpServer())
       .post('/message')
