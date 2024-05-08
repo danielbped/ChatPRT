@@ -26,6 +26,11 @@ Para a realização desse projeto, foi utilizada a [ferramenta da OpenAI](https:
 - [Testes](#testes)
   - [Backend](#testes-backend)
 - [Banco de dados](#db)
+- [Infra](#infra)
+  - [Workflows](#workflows)
+    - [Application build](#application-build)
+    - [Continuous Integration](#ci)
+  - [Terraform](#terraform)
 
 ## Licença <a name="licenca"></a>
 Este projeto está sob licença do [MIT](https://github.com/danielbped/ChatPRT/blob/master/LICENSE)
@@ -54,6 +59,8 @@ Este projeto está sob licença do [MIT](https://github.com/danielbped/ChatPRT/b
 - **[Docker](https://docs.docker.com/compose/)**: Uma ferramenta para definir e executar aplicações multi-contêineres. É a chave para desbloquear uma experiência de desenvolvimento e implantação simplificada e eficiente.
 - **[Swagger](https://swagger.io/)**: Ferramente utilizada para criar documentações exemplificando a utilização das rotas, de uma forma prática.
 - **[OpenAI](https://platform.openai.com/docs/introduction)**: Biblioteca que nos permite integrar seus produtos de Inteligência Artificial aos nossos projetos.
+- **[Terraform](https://www.terraform.io/)**: Uma ferramenta de infraestrutura como código (IaC) para provisionar e gerenciar recursos de infraestrutura de forma declarativa. É utilizado para automatizar implantações, oferecendo consistência e confiabilidade.
+- **[Google Cloud](https://cloud.google.com/)**: Uma plataforma de computação em nuvem do Google, oferecendo uma ampla gama de serviços para desenvolvimento, armazenamento e implantação de aplicações. Com infraestrutura global e recursos avançados, é uma escolha popular para migrar cargas de trabalho para a nuvem.
 
 # Instruções para rodar o projeto <a name="instrucoes"></a>
 
@@ -486,3 +493,20 @@ O banco de dados foi desenvolvido utilizando **MySQL** com o auxílio da ORM **T
 | `createdAt`| Date   |
 | `updatedAt`| Date   |
 
+# Infra <a name="infra"></a>
+
+## Workflows <a name="workflows"></a>
+
+Para um melhor fluxo de entrega e integrações contínuas, foram desenvolvidos dois scripts de workflow, que irão funcionar em momentos específicos do desenvolvimento. Ambos os workflows estão disponíveis na pasta [.github](/.github/workflows/).
+
+### Application build <a name="application-build"></a>
+
+Este script é responsável por atualizar as imagens da aplicação no [Docker Hub](https://hub.docker.com/), sempre que houver um push nas branch `master`.
+
+### Continuous Integration <a name="ci"></a>
+
+Este script é responsável por validar a integridade da aplicação e rodar todos os testes automatizados, sempre que um novo Pull Request for aberto.
+
+## Terraform <a name="terraform"></a>
+
+A configuração do Terraform se encontra disponível na pasta [Terraform](/terraform), no arquivo `main` pode-se encontrar toda a configuração de deploy das imagens Docker da aplicação, que são instanciadas no [Cloud Run](https://cloud.google.com/run?hl=pt-BR). Também como a instância do banco de dados MySQL no [Cloud SQL](https://cloud.google.com/sql?hl=pt-BR).
