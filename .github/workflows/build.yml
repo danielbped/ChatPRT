@@ -57,8 +57,7 @@ jobs:
           terraform_version: 1.0.0
 
       - name: Terraform Provider
-        run: terraform providers lock \
-          -platform=linux_amd64
+        run: terraform providers lock -platform=linux_amd64
 
       - name: Terraform Init
         run: terraform init
