@@ -60,7 +60,9 @@ jobs:
         run: terraform providers lock -platform=linux_amd64
 
       - name: Terraform Init
-        run: terraform init
+        run: |
+          cd terraform
+          terraform init
 
       - name: Terraform Plan
         run: |
