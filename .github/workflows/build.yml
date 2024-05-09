@@ -64,14 +64,11 @@ jobs:
         id: plan
 
       - name: Terraform Apply
-        if: ${{ github.ref == 'refs/heads/master' }}
         run: terraform apply -auto-approve tfplan
 
       - name: Store Cloud Run URL
-        if: ${{ github.ref == 'refs/heads/master' }}
         id: cloudrun
         run: echo "::set-output name=url::$(terraform output cloudrun_url)"
 
       - name: Show Cloud Run URL
-        if: ${{ github.ref == 'refs/heads/master' }}
         run: echo "Cloud Run URL: ${{ steps.cloudrun.outputs.url }}"
