@@ -56,6 +56,16 @@ jobs:
           echo "VITE_SECRET_KEY_JWT=$VITE_SECRET_KEY_JWT" >> .env
           echo "VITE_API_URL=$VITE_API_URL" >> .env
 
+      - name: Create DB .env file
+        run: |
+          touch .env
+          echo "MYSQL_DB_ROOT_PASSWORD=$MYSQL_DB_ROOT_PASSWORD" >> .env
+          echo "MYSQL_DB_NAME=$MYSQL_DB_NAME" >> .env
+          echo "MYSQL_DB_PASSWORD=$MYSQL_DB_PASSWORD" >> .env
+          echo "MYSQL_DB_USER=$MYSQL_DB_USER" >> .env
+          echo "MYSQL_DB_HOST=$MYSQL_DB_HOST" >> .env
+          echo "MYSQL_DB_PORT=$MYSQL_DB_PORT" >> .env
+
       - name: Set up Docker Compose
         run: sudo apt-get update && sudo apt-get install -y docker-compose
       
