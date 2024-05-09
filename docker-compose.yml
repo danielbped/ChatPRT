@@ -5,21 +5,12 @@ services:
     image: danielbped1/chatprt-backend:latest
     restart: always
     build: ./Backend
-    environment:
-      MYSQL_DB_USER: ${MYSQL_DB_USER}
-      MYSQL_DB_HOST: ${MYSQL_DB_HOST}
-      MYSQL_DB_PORT: ${MYSQL_DB_PORT}
-      SECRET_KEY_JWT: ${SECRET_KEY_JWT}
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
-      OPENAI_PROJECT: ${OPENAI_PROJECT}
-      OPENAI_ORGANIZATION: ${OPENAI_ORGANIZATION}
-      OPENAI_MODEL: ${OPENAI_MODEL}
-    # env_file:
-    #   - ./Backend/.env
+    env_file:
+      - ./Backend/.env
     ports:
       - 3000:3000
-    # depends_on:
-    #   - chatprt-db
+    depends_on:
+      - chatprt-db
     networks:
       - backend_network
 
@@ -27,9 +18,6 @@ services:
     image: danielbped1/chatprt-frontend:latest
     build: ./Frontend
     restart: always
-    environment:
-      VITE_API_URL: ${VITE_API_URL}
-      VITE_SECRET_KEY_JWT: ${VITE_SECRET_KEY_JWT}
     env_file:
       - ./Frontend/.env
     ports:
@@ -39,19 +27,19 @@ services:
     networks:
       - frontend_network
 
-  # chatprt-db:
-  #   image: mysql:latest
-  #   restart: always
-  #   environment:
-  #     MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOT_PASSWORD}
-  #     MYSQL_DATABASE: ${MYSQL_DB_NAME}
-  #     MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
-  #   ports:
-  #     - 3306:3306
-  #   volumes:
-  #     - ./Backend/data:/var/lib/mysql
-  #   networks:
-  #     - backend_network
+  chatprt-db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./Backend/data:/var/lib/mysql
+    networks:
+      - backend_network
 
 networks:
   backend_network:
