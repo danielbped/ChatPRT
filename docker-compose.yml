@@ -18,8 +18,8 @@ services:
     #   - ./Backend/.env
     ports:
       - 3000:3000
-    depends_on:
-      - chatprt-db
+    # depends_on:
+    #   - chatprt-db
     networks:
       - backend_network
 
@@ -39,19 +39,19 @@ services:
     networks:
       - frontend_network
 
-  chatprt-db:
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DB_NAME}
-      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
-    ports:
-      - 3306:3306
-    volumes:
-      - ./Backend/data:/var/lib/mysql
-    networks:
-      - backend_network
+  # chatprt-db:
+  #   image: mysql:latest
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_DB_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${MYSQL_DB_NAME}
+  #     MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+  #   ports:
+  #     - 3306:3306
+  #   volumes:
+  #     - ./Backend/data:/var/lib/mysql
+  #   networks:
+  #     - backend_network
 
 networks:
   backend_network:
